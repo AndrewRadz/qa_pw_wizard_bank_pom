@@ -1,7 +1,33 @@
 import { test } from '@playwright/test';
 import { faker } from '@faker-js/faker';
+import { AddCustomerPage } from '../../../src/pages/manager/AddCustomerPage';
+import { CustomersListPage } from '../../../src/pages/manager/CustomersListPage';
+
+const user = {
+  firstName: faker.person.firstName(),
+  lastName: faker.person.lastName(),
+  postCode: faker.location.zipCode(),
+};
 
 test('Assert manager can add new customer', async ({ page }) => {
+
+  const addCostumerPage = new AddCustomerPage(page);
+  const customersListPage = new CustomersListPage(page);
+
+  await addCostumerPage.open();
+  await addCostumerPage.fillFirstName(user.firstName);
+  await addCostumerPage.fillLastName(user.lastName);
+  await addCostumerPage.fillPostCodeField(user.postCode);
+  await addCostumerPage.clickAddCustumerButton();
+  await addCostumerPage.reloadPage();
+  await addCostumerPage.clickCostumersButton();
+
+  await page.waitForTimeout(2000);
+
+  await customersListPage.assertFirstNameInLastCell(user.firstName);
+  await customersListPage.assertLastNameInLastCell(user.lastName);
+  await customersListPage.assertAccountNumberCellIsEmpty();
+
 /* 
 Test:
 1. Open add customer page by link https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/addCust
