@@ -11,18 +11,18 @@ const user = {
 
 test('Assert manager can add new customer', async ({ page }) => {
 
-  const addCostumerPage = new AddCustomerPage(page);
+  const addCustomerPage = new AddCustomerPage(page);
   const customersListPage = new CustomersListPage(page);
 
-  await addCostumerPage.open();
-  await addCostumerPage.fillFirstName(user.firstName);
-  await addCostumerPage.fillLastName(user.lastName);
-  await addCostumerPage.fillPostCodeField(user.postCode);
-  await addCostumerPage.clickAddCustumerButton();
-  await addCostumerPage.reloadPage();
-  await addCostumerPage.clickCostumersButton();
+  await addCustomerPage.open();
+  await addCustomerPage.fillFirstName(user.firstName);
+  await addCustomerPage.fillLastName(user.lastName);
+  await addCustomerPage.fillPostCodeField(user.postCode);
+  await addCustomerPage.clickAddCustomerButton();
+  await addCustomerPage.reloadPage();
+  await addCustomerPage.clickCustomersButton();
+  await customersListPage.waitForTableLoad();
 
-  await page.waitForTimeout(2000);
 
   await customersListPage.assertFirstNameInLastCell(user.firstName);
   await customersListPage.assertLastNameInLastCell(user.lastName);

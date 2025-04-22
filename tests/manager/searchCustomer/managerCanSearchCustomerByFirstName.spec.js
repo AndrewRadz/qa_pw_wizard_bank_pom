@@ -16,13 +16,13 @@ const customer = {
 
 test.beforeEach( async ({ page }) => {
 
-const addCostumerPage = new AddCustomerPage(page);
+const addCustomerPage = new AddCustomerPage(page);
 
-await addCostumerPage.open();
-await addCostumerPage.fillFirstName(customer.firstName);
-await addCostumerPage.fillLastName(customer.lastName);
-await addCostumerPage.fillPostCodeField(customer.postalCode);
-await addCostumerPage.clickAddCustumerButton();
+await addCustomerPage.open();
+await addCustomerPage.fillFirstName(customer.firstName);
+await addCustomerPage.fillLastName(customer.lastName);
+await addCustomerPage.fillPostCodeField(customer.postalCode);
+await addCustomerPage.clickAddCustomerButton();
 
  
  

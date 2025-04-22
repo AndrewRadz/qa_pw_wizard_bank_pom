@@ -3,9 +3,9 @@ const { expect } = require('@playwright/test');
 export class CustomersListPage {
   constructor(page) {
     this.page = page;
-    this.costumerRow = page.locator('tbody > tr');
-    this.costumerRowDeleteButton = this
-      .costumerRow.getByRole('button');
+    this.customerRow = page.locator('tbody > tr');
+    this.customerRowDeleteButton = this
+      .customerRow.getByRole('button');
     this.searchField = page
       .getByPlaceholder('Search Customer');
     this.searchResultFirstRow = page
@@ -24,13 +24,16 @@ export class CustomersListPage {
     await this.page
     .goto('/angularJs-protractor/BankingProject/#/manager/list');
   }
-  async deleteCostumer(firstName, lastName, postCode) {
-    await this.costumerRow
+  async waitForTableLoad() {
+    await this.page.waitForSelector('tbody');
+  }
+  async deleteCustomer(firstName, lastName, postCode) {
+    await this.customerRow
     .filter({ hasText: `${firstName} ${lastName} ${postCode}` })    
     .getByRole('button', { name: 'Delete' }).click();
   }
   async assertCustomerIsNotVisible(firstName, lastName, postCode) {
-    await expect(this.costumerRow
+    await expect(this.customerRow
       .filter({ hasText: `${firstName} ${lastName} ${postCode}` }))
       .toBeHidden();
   }

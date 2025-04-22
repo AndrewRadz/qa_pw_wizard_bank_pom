@@ -5,13 +5,13 @@ export class OpenAccountPage {
     this.page = page;
     this.currencySelect = page
       .locator('#currency');
-    this.costumerSelect = page
+    this.customerSelect = page
       .getByTestId('userSelect');
     this.progressButton = page
       .getByRole('button', { name: 'Process' });
-    this.custumersHeadButton = page
+    this.customersHeadButton = page
       .getByRole('button', { name: 'Customers' });
-    this.lastCostumerRow = page
+    this.lastCustomerRow = page
       .locator('tbody > tr').last();
   }
 
@@ -40,8 +40,8 @@ export class OpenAccountPage {
     expect(await this.currencySelect.inputValue())
       .toBe('Rupee');
   }
-  async selectCostumer(firstName, lastName) {
-    await this.costumerSelect
+  async selectCustomer(firstName, lastName) {
+    await this.customerSelect
       .selectOption({ label: `${firstName} ${lastName}` });
   }
   async clickProgressButton() {
@@ -50,11 +50,11 @@ export class OpenAccountPage {
   async reloadPage() {
     await this.page.reload();
   }
-  async clickCostumersHeadButton() {
-    await this.custumersHeadButton.click();
+  async clickCustomersHeadButton() {
+    await this.customersHeadButton.click();
   }
   async assertIdCellIsNotEmpty() {
-    await expect(this.lastCostumerRow.locator('td:nth-child(4)'))
+    await expect(this.lastCustomerRow.locator('td:nth-child(4)'))
       .not.toBeEmpty();
   }
 }

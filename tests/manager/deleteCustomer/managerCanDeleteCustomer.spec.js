@@ -1,9 +1,10 @@
 import { test } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import { BankManagerMainPage } from '../../../src/pages/manager/BankManagerMainPage';
+import { AddCustomerPage } from '../../../src/pages/manager/AddCustomerPage';
 import { CustomersListPage } from '../../../src/pages/manager/CustomersListPage';
 
-const costumer = {
+const customer = {
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),
   postCode: faker.location.zipCode(),
@@ -13,12 +14,14 @@ const costumer = {
 test.beforeEach( async ({ page }) => {
 
   const bankManagerMainPage = new BankManagerMainPage(page);
+  const addCustomerPage = new AddCustomerPage(page);
+
   await bankManagerMainPage.open();
-  await bankManagerMainPage.clickAddCustumerButton();
-  await bankManagerMainPage.fillFirstName(costumer.firstName);
-  await bankManagerMainPage.fillLastName(costumer.lastName);
-  await bankManagerMainPage.fillPostCodeField(costumer.postCode);
-  await bankManagerMainPage.clickAddCostumerButton();
+  await bankManagerMainPage.clickAddCustomerButton();
+  await addCustomerPage.fillFirstName(customer.firstName);
+  await addCustomerPage.fillLastName(customer.lastName);
+  await addCustomerPage.fillPostCodeField(customer.postCode);
+  await addCustomerPage.clickAddCustomerButton();
 
 
   /* 
@@ -38,12 +41,12 @@ const customersListPage = new CustomersListPage(page);
 
 await customersListPage.open();
 await customersListPage
-  .deleteCostumer(costumer.firstName, costumer.lastName, costumer.postCode);
+  .deleteCustomer(customer.firstName, customer.lastName, customer.postCode);
 await customersListPage
-  .assertCustomerIsNotVisible(costumer.firstName, costumer.lastName, costumer.postCode);
+  .assertCustomerIsNotVisible(customer.firstName, customer.lastName, customer.postCode);
 await customersListPage.reloadPage();
 await customersListPage
-  .assertCustomerIsNotVisible(costumer.firstName, costumer.lastName, costumer.postCode);
+  .assertCustomerIsNotVisible(customer.firstName, customer.lastName, customer.postCode);
 
 await page.waitForTimeout(2000);
 

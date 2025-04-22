@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 export class BankManagerMainPage {
   constructor(page) {
     this.page = page;
-    this.addCustomerButtom = page
+    this.addCustomerButton = page
       .getByRole('button', { name: 'Add Customer' });
     this.openAccountButton = page
       .getByRole('button', { name: 'Open Account' });
@@ -15,9 +15,6 @@ export class BankManagerMainPage {
       .getByPlaceholder('Last Name');
     this.postCodeField = page
       .getByPlaceholder('Post Code');
-    this.addCostumerButton = page
-      .getByRole('form')
-      .getByRole('button', { name: 'Add Customer' });
   }
 
   async open() {
@@ -27,7 +24,7 @@ export class BankManagerMainPage {
     await this.page.waitForURL();
   }
   async assertAddCustomerButtomIsVisible() {
-    await expect(this.addCustomerButtom).toBeVisible();
+    await expect(this.addCustomerButton).toBeVisible();
   }
   async assertOpenAccountButtonIsVisible() {
     await expect(this.openAccountButton).toBeVisible();
@@ -35,8 +32,8 @@ export class BankManagerMainPage {
   async assertCustomersButtonIsVisible() {
     await expect(this.customersButton).toBeVisible();
   }
-  async clickAddCustumerButton() {
-    await this.addCustomerButtom.click();
+  async clickAddCustomerButton() {
+    await this.addCustomerButton.click();
   }
   async fillFirstName(firstName) {
     await this.firstNameField.fill(firstName);
@@ -47,7 +44,7 @@ export class BankManagerMainPage {
   async fillPostCodeField(postCode) {
     await this.postCodeField.fill(postCode);
   }
-  async clickAddCostumerButton() {
-    await this.addCostumerButton.click();
+  async clickAddCustomerButton() {
+    await this.addCustomerButton.click();
   }
 }

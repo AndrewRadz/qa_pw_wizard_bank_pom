@@ -5,7 +5,7 @@ export class BankHomePage {
     this.page = page; 
     this.customerLoginButton = page
       .getByRole('button', { name: 'Customer Login' });
-    this.managerLoginButton = page
+    this.managerLoginButton = page  
       .getByRole('button', { name: 'Bank Manager Login' });
   }
 

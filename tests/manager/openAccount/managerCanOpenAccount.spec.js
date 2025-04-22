@@ -4,7 +4,7 @@ import { AddCustomerPage } from '../../../src/pages/manager/AddCustomerPage';
 import { OpenAccountPage } from '../../../src/pages/manager/OpenAccountPage';
 
 
-const costumer = {
+const customer = {
   username: faker.person.firstName(),
   lastname: faker.person.lastName(),
   postcode: faker.location.zipCode(),
@@ -13,13 +13,13 @@ const costumer = {
 
 test.beforeEach( async ({ page }) => {
 
-    const addCustumerPage = new AddCustomerPage(page);
-    await addCustumerPage.open();
-    await addCustumerPage.fillFirstName(costumer.username);
-    await addCustumerPage.fillLastName(costumer.lastname);
-    await addCustumerPage.fillPostCodeField(costumer.postcode);
-    await addCustumerPage.clickAddCustumerButton();
-    await addCustumerPage.reloadPage();
+    const addCustomerPage = new AddCustomerPage(page);
+    await addCustomerPage.open();
+    await addCustomerPage.fillFirstName(customer.username);
+    await addCustomerPage.fillLastName(customer.lastname);
+    await addCustomerPage.fillPostCodeField(customer.postcode);
+    await addCustomerPage.clickAddCustomerButton();
+    await addCustomerPage.reloadPage();
     await page.waitForTimeout(2000);
     
   /* 
@@ -36,16 +36,16 @@ test.beforeEach( async ({ page }) => {
 
 test('Assert manager can add new customer', async ({ page }) => {
 
-  const addCustumerPage = new AddCustomerPage(page);
+  const addCustomerPage = new AddCustomerPage(page);
   const openAccountPage = new OpenAccountPage(page);
 
-  await addCustumerPage.clickOpenAccountButton();
+  await addCustomerPage.clickOpenAccountButton();
   await openAccountPage
-    .selectCostumer(costumer.username, costumer.lastname);
+    .selectCustomer(customer.username, customer.lastname);
   await openAccountPage.selectCurrDollar();
   await openAccountPage.clickProgressButton();
   await openAccountPage.reloadPage();
-  await openAccountPage.clickCostumersHeadButton();
+  await openAccountPage.clickCustomersHeadButton();
   await openAccountPage.assertIdCellIsNotEmpty();
 
 
